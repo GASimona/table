@@ -1,0 +1,296 @@
+<DOCTYPE <!DOCTYPE html>
+    <html>
+
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>TABLE 2</title>
+    </head>
+
+    <style>
+        tr,
+        td {
+            border: 1px solid black;
+            text-align: center;
+            padding: 1px;
+            width: 90px;
+            height: 90px;
+            border-spacing: 5px;
+        }
+
+        /* .sus {
+            vertical-align: top;
+        }
+
+        .jos {
+            vertical-align: bottom;
+        }
+ */
+
+        table {
+            border: 10px solid black;
+            height: 100%;
+            width: 70%;
+            background-color: black;
+            float: left;
+
+        }
+
+
+
+        button,
+        .pozPiesa {
+            font-size: 30px;
+            text-align: center;
+            color: white;
+            background-color: gray;
+
+        }
+
+        .zar {
+            border: 3px solid black;
+            background-color: gray;
+            font-size: 40px;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            color: white;
+        }
+
+
+        .stanga {
+            float: right;
+            width: 30%;
+        }
+    </style>
+
+    <body background="lemnCires.jpg">
+        <table id="tabla"></table>
+        <div class="stanga">
+            <center>
+                <button onclick="aruncaZarul()">Arunca cu zarurile</button>
+                <div></div>
+                <br>
+                <div id="zar1" class="zar">1</div>
+                <div id="zar2" class="zar">1</div>
+                <p class="pozPiesa">Pozitie piesa</p>
+                <div id="poz" class="zar">0</div>
+                <p class="pozPiesa">Culoare Piesa</p>
+                <div id="cul" class="zar">-</div>
+                <p class="pozPiesa" id="albSAUnegru">-</p>
+                <div id="nrPiese" class="zar">-</div>
+
+
+
+            </center>
+
+        </div>
+
+
+        <script type="text/javascript" src="startJoc.js"></script>
+
+        <script>
+            inceputJoc();
+            var pozitie;
+
+            var z1;
+            var z2;
+
+            var mutatZ1;
+            var mutatZ2;
+
+            var culoare = 0;
+            var color = 1;
+
+            var directie = 1;
+
+            var nrmutari = 0;
+
+            var m = 0;
+            var n = 0;
+            var nrpN = 0;
+            var nrpA = 0;
+            var vCuloare;
+
+
+            var imgs = document.getElementsByTagName('img');
+            var nrimgs = imgs.length;
+            var ct = "nu";
+
+            for (z = 0; z < imgs.length; ++z) {
+                imgs[z].addEventListener("click", RidicPiesa, true);
+            }
+
+            var tds = document.getElementsByTagName('td');
+            for (z = 0; z < tds.length; ++z) {
+                tds[z].addEventListener("click", IncercSaPunPiesa, true);
+            }
+
+
+            function mutare(event) {
+                document.body.appendChild(ct);
+
+                ct.style.left = (event.clientX + 10) + "px";
+                ct.style.top = (event.clientY + 10) + "px";
+            }
+
+
+            function RidicPiesa(event) {
+
+                if (((mutatZ1 != 1) || (mutatZ2 != 1)) && (nrmutari != 4)) {
+                    if (ct == "nu") {
+                        if (color == parseInt(event.currentTarget.getAttribute('culoare'))) {
+                            ct = event.currentTarget;
+
+                            verificarePozitieCuloare();
+
+                            ct.style.position = "fixed";
+                            document.addEventListener("mousemove", mutare);
+                        }
+                    }
+                }
+            }
+
+            function verificarePozitieCuloare() {
+                culoare = parseInt(event.currentTarget.getAttribute('culoare'));
+                document.getElementById('cul').innerHTML = culoare;
+
+                pozitie = parseInt(ct.parentElement.getAttribute('pozitie'));
+                document.getElementById('poz').innerHTML = pozitie;
+
+
+            }
+
+
+            function IncercSaPunPiesa(event) {
+                if (color == 0) {
+                    directie = -1;
+                }
+                if (color == 1) {
+                    directie = 1;
+                }
+                PunPiesaDirectie(event, directie);
+            }
+
+
+
+            function PunPiesaDirectie(event, directie) {
+                if (ct != "nu") {
+                    pozitieD = parseInt(event.currentTarget.getAttribute('pozitie'));
+
+                    if (z1 != z2) {
+                        if ((pozitie - (directie * z1) == pozitieD) && (mutatZ1 != 1)) {
+                            PunPiesa(event);
+                            mutatZ1 = 1;
+                            ct = "nu";
+                        }
+                        if ((pozitie - (directie * z2) == pozitieD) && (mutatZ2 != 1)) {
+                            PunPiesa(event);
+                            mutatZ2 = 1;
+                            ct = "nu";
+                        }
+                        if ((pozitie - (directie * z2) - (directie * z1) == pozitieD) && (mutatZ2 != 1) && (mutatZ1 != 1)) {
+                            PunPiesa(event);
+                            mutatZ2 = 1;
+                            mutatZ1 = 1;
+                            ct = "nu";
+                        }
+                    }
+
+                    if ((z1 == z2) && (nrmutari != 4)) {
+                        if ((pozitie - (directie * z1) == pozitieD) && (nrmutari < 4)) {
+                            PunPiesa(event);
+                            nrmutari = nrmutari + 1;
+                            ct = "nu";
+                        }
+                        if ((pozitie - (directie * 2 * z1) == pozitieD) && (nrmutari < 3)) {
+                            PunPiesa(event);
+                            nrmutari = nrmutari + 2;
+                            ct = "nu";
+                        }
+                        if ((pozitie - (directie * 3 * z1) == pozitieD) && (nrmutari < 2)) {
+                            PunPiesa(event);
+                            nrmutari = nrmutari + 3;
+                            ct = "nu";
+                        }
+                        if ((pozitie - (directie * 4 * z1) == pozitieD) && (nrmutari < 1)) {
+                            PunPiesa(event);
+                            nrmutari = nrmutari + 4;
+                            ct = "nu";
+                        }
+                    }
+                    event.stopImmediatePropagation();
+                }
+            }
+
+
+
+            function PunPiesa(event) {
+                document.removeEventListener("mousemove", mutare);
+                event.currentTarget.appendChild(ct);
+                ct.style.left = "0px";
+                ct.style.top = "0px";
+                ct.style.position = "relative";
+
+                afisare();
+            }
+
+
+            function aruncaZarul() {
+                mutatZ1 = 0;
+                mutatZ2 = 0;
+                nrmutari = 0;
+
+                color = 1 - color;
+
+                z1 = (Math.floor(Math.random() * 6) + 1);
+                z2 = (Math.floor(Math.random() * 6) + 1);
+
+                document.getElementById('zar1').innerHTML = z1;
+                document.getElementById('zar2').innerHTML = z2;
+
+                afisare();
+            }
+
+
+            function afisare() {
+                nrpA = 0;
+                nrpN = 0;
+
+                verificareScoaterePiese(color);
+
+                if (color == 0) {
+                    document.getElementById('albSAUnegru').innerHTML = "Muta Albul --- Nr piese ALb";
+                    document.getElementById('nrPiese').innerHTML = nrpA;
+                }
+                if (color == 1) {
+                    document.getElementById('albSAUnegru').innerHTML = "Muta Negrul --- Nr piese Negru";
+                    document.getElementById('nrPiese').innerHTML = nrpN;
+                }
+            }
+
+
+            function verificareScoaterePiese(culoare) {
+                for (m = 0; m < 30; ++m) {
+                    n = parseInt(imgs[m].parentElement.getAttribute('pozitie'));
+                    vCuloare = parseInt(imgs[m].getAttribute('culoare'));
+                    if (culoare == vCuloare) {
+                        if ((0 < n) && (n < 7) && (vCuloare == 1)) {
+                            ++nrpN;
+                        }
+                        if ((18 < n) && (n < 25) && (vCuloare == 0)) {
+                            ++nrpA;
+                        }
+                    }
+                }
+            }
+
+
+
+
+
+        </script>
+
+    </body>
+
+    </html>
