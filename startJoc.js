@@ -11,12 +11,12 @@ function inceputJoc() {
         tablaJoc.appendChild(lin);
         for (j = 0; j < nc; ++j) {
             var col = document.createElement('td');
-            // if (i == 0) {
-            //     td.setAttribute('class', 'sus');
-            // } 
-            // else {
-            //     td.setAttribute('class', 'jos');
-            // }
+            if (i == 0) {
+                col.setAttribute('class', 'sus');
+            } 
+            else {
+                col.setAttribute('class', 'jos');
+            }
             lin.appendChild(col);
 
             pozitiaPiesei(i, j, col);
