@@ -46,6 +46,11 @@
 
         }
 
+        /* td#asta.mic[pozitie="6"] {
+            background-color: red !important;
+        }
+ */
+
         .zar {
             border: 3px solid black;
             background-color: gray;
@@ -91,6 +96,7 @@
         <script>
             inceputJoc();
             var pozitie;
+            var pozitieD;
 
             var z1;
             var z2;
@@ -115,6 +121,12 @@
             var imgs = document.getElementsByTagName('img');
             var nrimgs = imgs.length;
             var ct = "nu";
+
+            var coloana;
+            var nrPieseColoana;
+            var y;
+
+
 
             for (z = 0; z < imgs.length; ++z) {
                 imgs[z].addEventListener("click", RidicPiesa, true);
@@ -173,51 +185,59 @@
 
 
 
-            function PunPiesaDirectie(event, directie) {
+            function PunPiesaDirectie(event, directie, color) {
                 if (ct != "nu") {
                     pozitieD = parseInt(event.currentTarget.getAttribute('pozitie'));
+                    pieseUndeMut(event, pozitieD, color);
 
-                    if (z1 != z2) {
-                        if ((pozitie - (directie * z1) == pozitieD) && (mutatZ1 != 1)) {
-                            PunPiesa(event);
-                            mutatZ1 = 1;
-                            ct = "nu";
-                        }
-                        if ((pozitie - (directie * z2) == pozitieD) && (mutatZ2 != 1)) {
-                            PunPiesa(event);
-                            mutatZ2 = 1;
-                            ct = "nu";
-                        }
-                        if ((pozitie - (directie * z2) - (directie * z1) == pozitieD) && (mutatZ2 != 1) && (mutatZ1 != 1)) {
-                            PunPiesa(event);
-                            mutatZ2 = 1;
-                            mutatZ1 = 1;
-                            ct = "nu";
-                        }
+                    if ((nrPieseColoana > 1) && (y != color)) {
+                        pozitieD = pozitie;
                     }
 
-                    if ((z1 == z2) && (nrmutari != 4)) {
-                        if ((pozitie - (directie * z1) == pozitieD) && (nrmutari < 4)) {
-                            PunPiesa(event);
-                            nrmutari = nrmutari + 1;
-                            ct = "nu";
+                    
+                        if (z1 != z2) {
+                            if ((pozitie - (directie * z1) == pozitieD) && (mutatZ1 != 1) && 
+                            ((nrPieseColoana == 0) || ((nrPieseColoana > 0) && ( y == color)))) {
+                                PunPiesa(event);
+                                mutatZ1 = 1;
+                                ct = "nu";
+                            }
+                            if ((pozitie - (directie * z2) == pozitieD) && (mutatZ2 != 1)) {
+                                PunPiesa(event);
+                                mutatZ2 = 1;
+                                ct = "nu";
+                            }
+                            if ((pozitie - (directie * z2) - (directie * z1) == pozitieD) && (mutatZ2 != 1) && (mutatZ1 != 1)) {
+                                PunPiesa(event);
+                                mutatZ2 = 1;
+                                mutatZ1 = 1;
+                                ct = "nu";
+                            }
                         }
-                        if ((pozitie - (directie * 2 * z1) == pozitieD) && (nrmutari < 3)) {
-                            PunPiesa(event);
-                            nrmutari = nrmutari + 2;
-                            ct = "nu";
+
+                        if ((z1 == z2) && (nrmutari != 4)) {
+                            if ((pozitie - (directie * z1) == pozitieD) && (nrmutari < 4)) {
+                                PunPiesa(event);
+                                nrmutari = nrmutari + 1;
+                                ct = "nu";
+                            }
+                            if ((pozitie - (directie * 2 * z1) == pozitieD) && (nrmutari < 3)) {
+                                PunPiesa(event);
+                                nrmutari = nrmutari + 2;
+                                ct = "nu";
+                            }
+                            if ((pozitie - (directie * 3 * z1) == pozitieD) && (nrmutari < 2)) {
+                                PunPiesa(event);
+                                nrmutari = nrmutari + 3;
+                                ct = "nu";
+                            }
+                            if ((pozitie - (directie * 4 * z1) == pozitieD) && (nrmutari < 1)) {
+                                PunPiesa(event);
+                                nrmutari = nrmutari + 4;
+                                ct = "nu";
+                            }
                         }
-                        if ((pozitie - (directie * 3 * z1) == pozitieD) && (nrmutari < 2)) {
-                            PunPiesa(event);
-                            nrmutari = nrmutari + 3;
-                            ct = "nu";
-                        }
-                        if ((pozitie - (directie * 4 * z1) == pozitieD) && (nrmutari < 1)) {
-                            PunPiesa(event);
-                            nrmutari = nrmutari + 4;
-                            ct = "nu";
-                        }
-                    }
+                    
                     event.stopImmediatePropagation();
                 }
             }
@@ -284,6 +304,13 @@
                 }
             }
 
+
+
+            function pieseUndeMut(event, pozitieD, color) {
+                coloana = document.querySelector('td[pozitie="' + pozitieD + '"]');
+                nrPieseColoana = coloana.children.length;
+                y = coloana.children[0].getAttribute('culoare');
+            }
 
 
 
