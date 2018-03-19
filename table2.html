@@ -90,42 +90,11 @@
 
         </div>
 
-
+        <script type="text/javascript" src="variabile.js"></script>
         <script type="text/javascript" src="startJoc.js"></script>
 
         <script>
             inceputJoc();
-            var pozitie;
-            var pozitieD;
-
-            var z1;
-            var z2;
-
-            var mutatZ1;
-            var mutatZ2;
-
-            var culoare = 0;
-            var color = 1;
-
-            var directie = 1;
-
-            var nrmutari = 0;
-
-            var m = 0;
-            var n = 0;
-            var nrpN = 0;
-            var nrpA = 0;
-            var vCuloare;
-
-
-            var imgs = document.getElementsByTagName('img');
-            var nrimgs = imgs.length;
-            var ct = "nu";
-
-            var coloana;
-            var nrPieseColoana;
-            var y;
-
 
 
             for (z = 0; z < imgs.length; ++z) {
@@ -133,6 +102,7 @@
             }
 
             var tds = document.getElementsByTagName('td');
+
             for (z = 0; z < tds.length; ++z) {
                 tds[z].addEventListener("click", IncercSaPunPiesa, true);
             }
@@ -194,54 +164,68 @@
                         pozitieD = pozitie;
                     }
 
-                    
-                        if (z1 != z2) {
-                            if ((pozitie - (directie * z1) == pozitieD) && (mutatZ1 != 1) && 
-                            ((nrPieseColoana == 0) || ((nrPieseColoana > 0) && ( y == color)))) {
-                                PunPiesa(event);
-                                mutatZ1 = 1;
-                                ct = "nu";
-                            }
-                            if ((pozitie - (directie * z2) == pozitieD) && (mutatZ2 != 1)) {
-                                PunPiesa(event);
-                                mutatZ2 = 1;
-                                ct = "nu";
-                            }
-                            if ((pozitie - (directie * z2) - (directie * z1) == pozitieD) && (mutatZ2 != 1) && (mutatZ1 != 1)) {
-                                PunPiesa(event);
-                                mutatZ2 = 1;
-                                mutatZ1 = 1;
-                                ct = "nu";
-                            }
-                        }
 
-                        if ((z1 == z2) && (nrmutari != 4)) {
-                            if ((pozitie - (directie * z1) == pozitieD) && (nrmutari < 4)) {
-                                PunPiesa(event);
-                                nrmutari = nrmutari + 1;
-                                ct = "nu";
-                            }
-                            if ((pozitie - (directie * 2 * z1) == pozitieD) && (nrmutari < 3)) {
-                                PunPiesa(event);
-                                nrmutari = nrmutari + 2;
-                                ct = "nu";
-                            }
-                            if ((pozitie - (directie * 3 * z1) == pozitieD) && (nrmutari < 2)) {
-                                PunPiesa(event);
-                                nrmutari = nrmutari + 3;
-                                ct = "nu";
-                            }
-                            if ((pozitie - (directie * 4 * z1) == pozitieD) && (nrmutari < 1)) {
-                                PunPiesa(event);
-                                nrmutari = nrmutari + 4;
-                                ct = "nu";
-                            }
-                        }
-                    
+                    zarurileNuSuntEgale(event, pozitieD, directie, color);
+                    zarurileSuntEgale(event, pozitieD, directie, color);
+
                     event.stopImmediatePropagation();
                 }
             }
 
+            function zarurileNuSuntEgale(event, pozitieD, directie, color) {
+                if (z1 != z2) {
+                    if ((pozitie - (directie * z1) == pozitieD) && (mutatZ1 != 1) && verificareNrPiese(nrPieseColoana, y, color)) {
+                        PunPiesa(event);
+                        mutatZ1 = 1;
+                        ct = "nu";
+                    }
+                    if ((pozitie - (directie * z2) == pozitieD) && (mutatZ2 != 1)) {
+                        PunPiesa(event);
+                        mutatZ2 = 1;
+                        ct = "nu";
+                    }
+                    if ((pozitie - (directie * z2) - (directie * z1) == pozitieD) && (mutatZ2 != 1) && (mutatZ1 != 1)) {
+                        PunPiesa(event);
+                        mutatZ2 = 1;
+                        mutatZ1 = 1;
+                        ct = "nu";
+                    }
+                }
+            }
+
+            function verificareNrPiese(nrPieseColoana, y, color) {
+                if ((nrPieseColoana == 0) || ((nrPieseColoana > 0) && (y == color))){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+
+            function zarurileSuntEgale(event, pozitieD, directie, color) {
+                if ((z1 == z2) && (nrmutari != 4)) {
+                    if ((pozitie - (directie * z1) == pozitieD) && (nrmutari < 4)) {
+                        PunPiesa(event);
+                        nrmutari = nrmutari + 1;
+                        ct = "nu";
+                    }
+                    if ((pozitie - (directie * 2 * z1) == pozitieD) && (nrmutari < 3)) {
+                        PunPiesa(event);
+                        nrmutari = nrmutari + 2;
+                        ct = "nu";
+                    }
+                    if ((pozitie - (directie * 3 * z1) == pozitieD) && (nrmutari < 2)) {
+                        PunPiesa(event);
+                        nrmutari = nrmutari + 3;
+                        ct = "nu";
+                    }
+                    if ((pozitie - (directie * 4 * z1) == pozitieD) && (nrmutari < 1)) {
+                        PunPiesa(event);
+                        nrmutari = nrmutari + 4;
+                        ct = "nu";
+                    }
+                }
+            }
 
 
             function PunPiesa(event) {
@@ -309,7 +293,9 @@
             function pieseUndeMut(event, pozitieD, color) {
                 coloana = document.querySelector('td[pozitie="' + pozitieD + '"]');
                 nrPieseColoana = coloana.children.length;
-                y = coloana.children[0].getAttribute('culoare');
+                if (nrPieseColoana > 0) {
+                    y = coloana.children[0].getAttribute('culoare');
+                }
             }
 
 
