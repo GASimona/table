@@ -28,3 +28,5 @@ var ct = "nu";
 var coloana;
 var nrPieseColoana;
 var y;
+
+var curcubeu;
