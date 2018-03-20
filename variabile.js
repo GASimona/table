@@ -30,3 +30,4 @@ var nrPieseColoana;
 var y;
 
 var curcubeu;
+var r;
