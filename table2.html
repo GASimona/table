@@ -178,89 +178,137 @@
 
             function zarurileNuSuntEgale(event, pozitieD, directie, color) {
                 if (z1 != z2) {
-                    if ((pozitie - (directie * z1) == pozitieD) && (mutatZ1 != 1)) {
-                        if (verificareNrPiese(nrPieseColoana, y, color)) {
-                            PunPiesa(event);
-                            mutatZ1 = 1;
-                            ct = "nu";
-                        }
-                        else {
-                            ScotPiesa()
-                        }
-                    }
-
-                    if ((pozitie - (directie * z2) == pozitieD) && (mutatZ2 != 1)) {
-                        if (verificareNrPiese(nrPieseColoana, y, color)) {
-                            PunPiesa(event);
-                            mutatZ2 = 1;
-                            ct = "nu";
-                        }
-                        else {
-                            ScotPiesa();
-                        }
-                    }
-                    if ((pozitie - (directie * z2) - (directie * z1) == pozitieD) && (mutatZ2 != 1) && (mutatZ1 != 1)) {
-                        if (verificareNrPiese(nrPieseColoana, y, color)) {
-                            PunPiesa(event);
-                            mutatZ2 = 1;
-                            mutatZ1 = 1;
-                            ct = "nu";
-                        }
-                        else {
-                            ScotPiesa();
-                        }
-                    }
+                    NuEgaleMutaZarUnu(pozitieD);
+                    NuEgaleMutaUnZarDoi(pozitieD);
+                    NuEgaleMutaUnZarUnuSiDoi(pozitieD);
                 }
             }
 
             function zarurileSuntEgale(event, pozitieD, directie, color) {
                 if ((z1 == z2) && (nrmutari != 4)) {
-                    if ((pozitie - (directie * z1) == pozitieD) && (nrmutari < 4)) {
-                        if (verificareNrPiese(nrPieseColoana, y, color)) {
-                            PunPiesa(event);
-                            nrmutari = nrmutari + 1;
-                            ct = "nu";
-                        }
-                        else {
-                            ScotPiesa();
-                        }
+                    EgaleMutaOPozitie(pozitieD);
+                    EgaleMutaDouaPozitie(pozitieD);
+                    EgaleMutaTreiPozitie(pozitieD);
+                    EgaleMutaPatruPozitie(pozitieD);
+                }
+            }
+            function NuEgaleMutaZarUnu(pozitieD) {
+                if ((pozitie - (directie * z1) == pozitieD) && (mutatZ1 != 1)) {
+                    if (verificareNrPiese(nrPieseColoana, y, color)) {
+                        PunPiesa(event);
+                        mutatZ1 = 1;
+                        ct = "nu";
                     }
-                    if ((pozitie - (directie * 2 * z1) == pozitieD) && (nrmutari < 3)) {
-                        if (verificareNrPiese(nrPieseColoana, y, color)) {
-                            PunPiesa(event);
-                            nrmutari = nrmutari + 2;
-                            ct = "nu";
-                        }
-                        else {
-                            ScotPiesa();
-                        }
+                    else {
+                        PunPiesa(event);
+                        mutatZ1 = 1;
+                        ct = "nu";
+                        ScotPiesa()
                     }
-                    if ((pozitie - (directie * 3 * z1) == pozitieD) && (nrmutari < 2)) {
-                        if (verificareNrPiese(nrPieseColoana, y, color)) {
-                            PunPiesa(event);
-                            nrmutari = nrmutari + 3;
-                            ct = "nu";
-                        }
-                        else {
-                            ScotPiesa();
-                        }
+                }
+            }
+
+            function NuEgaleMutaUnZarDoi(pozitieD) {
+                if ((pozitie - (directie * z2) == pozitieD) && (mutatZ2 != 1)) {
+                    if (verificareNrPiese(nrPieseColoana, y, color)) {
+                        PunPiesa(event);
+                        mutatZ2 = 1;
+                        ct = "nu";
                     }
-                    if ((pozitie - (directie * 4 * z1) == pozitieD) && (nrmutari < 1) && verificareNrPiese(nrPieseColoana, y, color)) {
-                        if (verificareNrPiese(nrPieseColoana, y, color)) {
-                            PunPiesa(event);
-                            nrmutari = nrmutari + 4;
-                            ct = "nu";
-                        }
-                        else {
-                            ScotPiesa();
-                        }
+                    else {
+                        PunPiesa(event);
+                        mutatZ2 = 1;
+                        ct = "nu";
+                        ScotPiesa();
+                    }
+                }
+            }
+
+            function NuEgaleMutaUnZarUnuSiDoi(pozitieD) {
+                if ((pozitie - (directie * z2) - (directie * z1) == pozitieD) && (mutatZ2 != 1) && (mutatZ1 != 1)) {
+                    if (verificareNrPiese(nrPieseColoana, y, color)) {
+                        PunPiesa(event);
+                        mutatZ2 = 1;
+                        mutatZ1 = 1;
+                        ct = "nu";
+                    }
+                    else {
+                        PunPiesa(event);
+                        mutatZ2 = 1;
+                        mutatZ1 = 1;
+                        ct = "nu";
+                        ScotPiesa();
+                    }
+                }
+            }
+
+            function EgaleMutaOPozitie(pozitieD) {
+                if ((pozitie - (directie * z1) == pozitieD) && (nrmutari < 4)) {
+                    if (verificareNrPiese(nrPieseColoana, y, color)) {
+                        PunPiesa(event);
+                        nrmutari = nrmutari + 1;
+                        ct = "nu";
+                    }
+                    else {
+                        PunPiesa(event);
+                        nrmutari = nrmutari + 1;
+                        ct = "nu";
+                        ScotPiesa();
+                    }
+                }
+            }
+
+            function EgaleMutaDouaPozitie(pozitieD) {
+                if ((pozitie - (directie * 2 * z1) == pozitieD) && (nrmutari < 3)) {
+                    if (verificareNrPiese(nrPieseColoana, y, color)) {
+                        PunPiesa(event);
+                        nrmutari = nrmutari + 2;
+                        ct = "nu";
+                    }
+                    else {
+                        PunPiesa(event);
+                        nrmutari = nrmutari + 2;
+                        ct = "nu";
+                        ScotPiesa();
+                    }
+                }
+            }
+
+            function EgaleMutaTreiPozitie(pozitieD) {
+                if ((pozitie - (directie * 3 * z1) == pozitieD) && (nrmutari < 2)) {
+                    if (verificareNrPiese(nrPieseColoana, y, color)) {
+                        PunPiesa(event);
+                        nrmutari = nrmutari + 3;
+                        ct = "nu";
+                    }
+                    else {
+                        PunPiesa(event);
+                        nrmutari = nrmutari + 3;
+                        ct = "nu";
+                        ScotPiesa();
+                    }
+                }
+            }
+
+            function EgaleMutaPatruPozitie(pozitieD) {
+                if ((pozitie - (directie * 4 * z1) == pozitieD) && (nrmutari < 1) && verificareNrPiese(nrPieseColoana, y, color)) {
+                    if (verificareNrPiese(nrPieseColoana, y, color)) {
+                        PunPiesa(event);
+                        nrmutari = nrmutari + 4;
+                        ct = "nu";
+                    }
+                    else {
+                        PunPiesa(event);
+                        nrmutari = nrmutari + 4;
+                        ct = "nu";
+                        ScotPiesa();
                     }
                 }
             }
 
             function ScotPiesa() {
                 if ((nrPieseColoana == 1) && (y != curcubeu)) {
-                    punPiesaLaPozitie(pozitieD);
+                    // punPiesaLaPozitie(pozitieD);
                     oSinguraPiesa()
                     scoatePiesaAfara();
                 }
@@ -300,19 +348,19 @@
             function scoatePiesaAfara() {
                 if (color == 1) {
                     var pozAfara = document.querySelector('td[pozitie="' + 25 + '"].jos');
-                    document.removeEventListener("mousemove", mutare);
+                    // document.removeEventListener("mousemove", mutare);
                     pozAfara.appendChild(r);
-                    ct.style.left = "0px";
-                    ct.style.top = "0px";
-                    ct.style.position = "relative";
+                    // ct.style.left = "0px";
+                    // ct.style.top = "0px";
+                    // ct.style.position = "relative";
                 }
                 if (color == 0) {
                     var pozAfara = document.querySelector('td[pozitie="' + 25 + '"].sus');
-                    document.removeEventListener("mousemove", mutare);
+                    // document.removeEventListener("mousemove", mutare);
                     pozAfara.appendChild(r);
-                    ct.style.left = "0px";
-                    ct.style.top = "0px";
-                    ct.style.position = "relative";
+                    // ct.style.left = "0px";
+                    // ct.style.top = "0px";
+                    // ct.style.position = "relative";
                 }
             }
 
