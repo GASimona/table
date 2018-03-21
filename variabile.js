@@ -31,3 +31,5 @@ var y;
 
 var curcubeu;
 var r;
+
+var afara;

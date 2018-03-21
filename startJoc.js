@@ -13,18 +13,17 @@ function inceputJoc() {
             var col = document.createElement('td');
             if (i == 0) {
                 col.setAttribute('class', 'sus');
-            } 
+            }
             else {
                 col.setAttribute('class', 'jos');
             }
             lin.appendChild(col);
 
             pozitiaPiesei(i, j, col);
-
-            aranjarePieseInTabla(i, j, col);
-
+            FontInTabla(i, j, col);
         }
     }
+    aranjarePieseInTabla();
 }
 
 function pozitiaPiesei(i, j, col) {
@@ -53,69 +52,43 @@ function pozitiaPiesei(i, j, col) {
     }
 }
 
-function aranjarePieseInTabla(i, j, col) {
+function FontInTabla(i, j, col) {
     if ((j == 6) || (j == 13)) {
         col.style.background = "rgb(87, 85, 85)";
     }
     else {
         col.style.background = "rgb(185, 139, 78)";
     }
-    if ((j == 0) && (i == 0)) {
-        for (a = 0; a < 2; ++a) {
-            adaugaPiesaALaCoordonatele(i, j);
-        }
-    }
-    if ((j == 5) && (i == 0)) {
-        for (a = 0; a < 5; ++a) {
-            adaugaPiesaNLaCoordonatele(i, j);
-        }
-    }
-    if ((j == 8) && (i == 0)) {
-        for (a = 0; a < 3; ++a) {
-            adaugaPiesaNLaCoordonatele(i, j);
-        }
-    }
-    if ((j == 12) && (i == 0)) {
-        for (a = 0; a < 5; ++a) {
-            adaugaPiesaALaCoordonatele(i, j);
-        }
-    }
-    if ((j == 0) && (i == 1)) {
-        for (a = 0; a < 2; ++a) {
-            adaugaPiesaNLaCoordonatele(i, j);
-        }
-    }
-    if ((j == 5) && (i == 1)) {
-        for (a = 0; a < 5; ++a) {
-            adaugaPiesaALaCoordonatele(i, j);
-        }
-    }
-    if ((j == 8) && (i == 1)) {
-        for (a = 0; a < 3; ++a) {
-            adaugaPiesaALaCoordonatele(i, j);
-        }
-    }
-    if ((j == 12) && (i == 1)) {
-        for (a = 0; a < 5; ++a) {
-            adaugaPiesaNLaCoordonatele(i, j);
-        }
+}
+
+var listapiese = [
+    { x: 0, y: 0, c: 0 }, { x: 0, y: 0, c: 0 },
+    { x: 0, y: 5, c: 1 }, { x: 0, y: 5, c: 1 }, { x: 0, y: 5, c: 1 }, { x: 0, y: 5, c: 1 }, { x: 0, y: 5, c: 1 },
+    { x: 0, y: 8, c: 1 }, { x: 0, y: 8, c: 1 }, { x: 0, y: 8, c: 1 },
+    { x: 0, y: 12, c: 0 }, { x: 0, y: 12, c: 0 }, { x: 0, y: 12, c: 0 }, { x: 0, y: 12, c: 0 }, { x: 0, y: 12, c: 0 },
+    { x: 1, y: 0, c: 1 }, { x: 1, y: 0, c: 1 },
+    { x: 1, y: 5, c: 0 }, { x: 1, y: 5, c: 0 }, { x: 1, y: 5, c: 0 }, { x: 1, y: 5, c: 0 }, { x: 1, y: 5, c: 0 },
+    { x: 1, y: 8, c: 0 }, { x: 1, y: 8, c: 0 }, { x: 1, y: 8, c: 0 },
+    { x: 1, y: 12, c: 1 }, { x: 1, y: 12, c: 1 }, { x: 1, y: 12, c: 1 }, { x: 1, y: 12, c: 1 }, { x: 1, y: 12, c: 1 }
+];
+var contor = 0;
+
+function aranjarePieseInTabla() {
+    for (contor == 0; contor < listapiese.length; ++contor) {
+        adaugaPiesaLaCoordonatele(listapiese[contor].x, listapiese[contor].y, listapiese[contor].c);
     }
 }
 
-
-function adaugaPiesaALaCoordonatele(i, j) {
+function adaugaPiesaLaCoordonatele(i, j, culoare) {
     lin = tablaJoc.children[i];
     col = lin.children[j];
-    adaugaPiesa(col, "alb.jpg", 0);
+    if (culoare == 0) {
+        adaugaPiesa(col, "alb.jpg", culoare);
+    }
+    else {
+        adaugaPiesa(col, "negru.jpg", culoare);
+    }
 }
-
-function adaugaPiesaNLaCoordonatele(i, j) {
-    var lin = tablaJoc.children[i];
-    var col = lin.children[j];
-    adaugaPiesa(col, "negru.jpg", 1);
-
-}
-
 
 function adaugaPiesa(celula, piesa, culoare) {
     var x = document.createElement('img');
