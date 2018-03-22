@@ -115,16 +115,29 @@
                 if (((mutatZ1 != 1) || (mutatZ2 != 1)) && (nrmutari != 4)) {
                     if (ct == "nu") {
                         if (color == parseInt(event.currentTarget.getAttribute('culoare'))) {
-                            ct = event.currentTarget;
 
-                            verificarePozitieCuloare();
+                            if (nrPieseScoase != 0) {
+                                ct = cscoase.children[0];
+                                verificarePozitieCuloare();
+                                ct.style.position = "fixed";
+                                document.addEventListener("mousemove", mutare);
 
-                            ct.style.position = "fixed";
-                            document.addEventListener("mousemove", mutare);
+                                // pune poza in una din poziriile 1-6
+                            }
+
+                            else {
+                                ct = event.currentTarget;
+                                verificarePozitieCuloare();
+                                ct.style.position = "fixed";
+                                document.addEventListener("mousemove", mutare);
+                            }
                         }
                     }
                 }
             }
+
+
+
 
             function verificarePozitieCuloare() {
                 culoare = parseInt(event.currentTarget.getAttribute('culoare'));
@@ -156,11 +169,13 @@
                     zarurileNuSuntEgale(event, pozitieD, directie, color);
                     zarurileSuntEgale(event, pozitieD, directie, color);
 
-                    if ((nrPieseColoana > 0) && (y != curcubeu)) {
-                        punPiesaLaPozitie(pozitie)
-                        ct = "nu";
-                    }
                     event.stopImmediatePropagation();
+                }
+            }
+
+            function MutPiesaLaLoc(nrPieseColoana, y, curcubeu, pozitie, ct) {
+                if ((nrPieseColoana > 0) && (y != curcubeu)) {
+                    punPiesaLaPozitie(pozitie);
                 }
             }
 
@@ -191,11 +206,11 @@
 
             function scoatePiesaAfara(r) {
                 if (color == 1) {
-                    var pozAfara = document.querySelector('td[pozitie="' + 25 + '"].jos');
+                    var pozAfara = document.querySelector('td[pozitie="' + 0 + '"]');
                     pozAfara.appendChild(r);
                 }
                 if (color == 0) {
-                    var pozAfara = document.querySelector('td[pozitie="' + 25 + '"].sus');
+                    var pozAfara = document.querySelector('td[pozitie="' + 25 + '"]');
                     pozAfara.appendChild(r);
                 }
             }
@@ -222,22 +237,6 @@
 
             function verificareNrPiese(nrPieseColoana, y, color) {
                 return (nrPieseColoana == 0) || ((nrPieseColoana > 0) && (y == color));
-            }
-
-            function aruncaZarul() {
-                mutatZ1 = 0;
-                mutatZ2 = 0;
-                nrmutari = 0;
-
-                color = 1 - color;
-
-                z1 = (Math.floor(Math.random() * 6) + 1);
-                z2 = (Math.floor(Math.random() * 6) + 1);
-
-                document.getElementById('zar1').innerHTML = z1;
-                document.getElementById('zar2').innerHTML = z2;
-
-                afisare();
             }
 
             function afisare() {
@@ -272,22 +271,65 @@
                 }
             }
 
-
             function AvemPieseAfara() {
-                afara = 25;
-                pieseUndeMut(afara);
-                if (nrPieseColoana > 0) {
-
+                if (afaraN = 25) {
+                    pieseUndeMut(afara);
+                    if (nrPieseScoase > 0) { }
+                }
+                else if (afaraA == 0) {
+                    if (nrPieseScoase > 0) { }
                 }
             }
 
             function pieseUndeMut(pozitieD) {
-                coloana = document.querySelector('td[pozitie="' + pozitieD + '"]');
-                nrPieseColoana = coloana.children.length;
+                catePieseSuntInColoana(pozitieD);
                 if (nrPieseColoana > 0) {
                     y = parseInt(coloana.children[0].getAttribute('culoare'));
                 }
             }
+
+            function catePieseSuntInColoana(pozitie) {
+                coloana = document.querySelector('td[pozitie="' + pozitie + '"]');
+                nrPieseColoana = coloana.children.length;
+            }
+
+            function aruncaZarul() {
+                mutatZ1 = 0;
+                mutatZ2 = 0;
+                nrmutari = 0;
+
+                color = 1 - color;
+
+                z1 = (Math.floor(Math.random() * 6) + 1);
+                z2 = (Math.floor(Math.random() * 6) + 1);
+
+                document.getElementById('zar1').innerHTML = z1;
+                document.getElementById('zar2').innerHTML = z2;
+
+                afisare();
+
+                PiesaScoasa(color)
+
+                // am piesa afara?
+                // daca color = 1 verificam  25.sus, color = 0 verificam 25.jos
+                // daca DA ridica piesa
+                // daca e alba o pozitionam in 0-5 sus, daca e neagra in 0-5 jos
+            }
+
+            function PiesaScoasa(color) {
+                if (color == 0) {
+                    cscoase = document.querySelector('td[pozitie="' + 0 + '"]');
+                    nrPieseScoase = cscoase.children.length;
+                    afaraA = 0;
+                }
+                else {
+                    cscoase = document.querySelector('td[pozitie="' + 25 + '"]');
+                    nrPieseScoase = cscoase.children.length;
+                    afaraN = 25;
+                }
+            }
+
+
 
         </script>
 

@@ -32,4 +32,7 @@ var y;
 var curcubeu;
 var r;
 
-var afara;
+var afaraA;
+var afaraN;
+var nrPieseScoase;
+var cscoase;

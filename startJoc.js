@@ -28,7 +28,10 @@ function inceputJoc() {
 
 function pozitiaPiesei(i, j, col) {
 
-    if (j == 6) {
+    if ((j == 6) && (i == 1)) {
+        col.setAttribute('pozitie', 0);
+    }
+    if ((j == 6) && (i == 0)) {
         col.setAttribute('pozitie', 25);
     }
     if (j == 13) {
