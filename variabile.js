@@ -16,8 +16,7 @@ var nrmutari = 0;
 
 var m = 0;
 var n = 0;
-var nrpN = 0;
-var nrpA = 0;
+var nrpiese = 0;
 var vCuloare;
 
 

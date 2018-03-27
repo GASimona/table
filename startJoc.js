@@ -26,6 +26,15 @@ function inceputJoc() {
     aranjarePieseInTabla();
 }
 
+function FontInTabla(i, j, col) {
+    if ((j == 6) || (j == 13)) {
+        col.style.background = "rgb(87, 85, 85)";
+    }
+    else {
+        col.style.background = "rgb(185, 139, 78)";
+    }
+}
+
 function pozitiaPiesei(i, j, col) {
 
     if ((j == 6) && (i == 1)) {
@@ -34,8 +43,11 @@ function pozitiaPiesei(i, j, col) {
     if ((j == 6) && (i == 0)) {
         col.setAttribute('pozitie', 25);
     }
-    if (j == 13) {
-        col.setAttribute('pozitie', 26);
+    if ((j == 13) && (i == 1)) {
+        col.setAttribute('pozitie', 222);
+    }
+    if ((j == 13) && (i == 0)) {
+        col.setAttribute('pozitie', 111);
     }
     if (j < 6) {
         if (i == 0) {
@@ -55,15 +67,6 @@ function pozitiaPiesei(i, j, col) {
     }
 }
 
-function FontInTabla(i, j, col) {
-    if ((j == 6) || (j == 13)) {
-        col.style.background = "rgb(87, 85, 85)";
-    }
-    else {
-        col.style.background = "rgb(185, 139, 78)";
-    }
-}
-
 var listapiese = [
     { x: 0, y: 0, c: 0 }, { x: 0, y: 0, c: 0 },
     { x: 0, y: 5, c: 1 }, { x: 0, y: 5, c: 1 }, { x: 0, y: 5, c: 1 }, { x: 0, y: 5, c: 1 }, { x: 0, y: 5, c: 1 },
@@ -74,6 +77,9 @@ var listapiese = [
     { x: 1, y: 8, c: 0 }, { x: 1, y: 8, c: 0 }, { x: 1, y: 8, c: 0 },
     { x: 1, y: 12, c: 1 }, { x: 1, y: 12, c: 1 }, { x: 1, y: 12, c: 1 }, { x: 1, y: 12, c: 1 }, { x: 1, y: 12, c: 1 }
 ];
+
+
+
 var contor = 0;
 
 function aranjarePieseInTabla() {

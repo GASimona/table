@@ -121,8 +121,6 @@
                                 verificarePozitieCuloare();
                                 ct.style.position = "fixed";
                                 document.addEventListener("mousemove", mutare);
-
-                                // pune poza in una din poziriile 1-6
                             }
 
                             else {
@@ -159,12 +157,24 @@
             }
 
 
-
             function PunPiesaDirectie(event, directie) {
                 if (ct != "nu") {
                     curcubeu = color;
                     pozitieD = parseInt(event.currentTarget.getAttribute('pozitie'));
                     pieseUndeMut(pozitieD);
+
+                    if (color == 1) {
+                        ScoatemPieseDinTabla(culoare);
+                        if ((nrpiese == 14) && (pozitieD < 0)) {
+                            pozitieD = 111;
+                        }
+                    }
+                    if (color == 0) {
+                        ScoatemPieseDinTabla(culoare);
+                        if ((nrpiese == 14) && (pozitieD > 25)) {
+                            pozitieD = 222;
+                        }
+                    }
 
                     zarurileNuSuntEgale(event, pozitieD, directie, color);
                     zarurileSuntEgale(event, pozitieD, directie, color);
@@ -174,7 +184,7 @@
             }
 
             function MutPiesaLaLoc(nrPieseColoana, y, curcubeu, pozitie, ct) {
-                if ((nrPieseColoana > 0) && (y != curcubeu)) {
+                if ((nrPieseColoana > 1) && (y != curcubeu)) {
                     punPiesaLaPozitie(pozitie);
                 }
             }
@@ -232,6 +242,7 @@
                 ct.style.left = "0px";
                 ct.style.top = "0px";
                 ct.style.position = "relative";
+                ct = "nu";
                 afisare();
             }
 
@@ -240,36 +251,41 @@
             }
 
             function afisare() {
-                nrpA = 0;
-                nrpN = 0;
+                nrpiese = 0;
 
-                verificareScoaterePiese(color);
 
                 if (color == 0) {
                     document.getElementById('albSAUnegru').innerHTML = "Muta Albul --- Nr piese ALb";
-                    document.getElementById('nrPiese').innerHTML = nrpA;
+                    document.getElementById('nrPiese').innerHTML = nrpiese;
                 }
                 if (color == 1) {
                     document.getElementById('albSAUnegru').innerHTML = "Muta Negrul --- Nr piese Negru";
-                    document.getElementById('nrPiese').innerHTML = nrpN;
+                    document.getElementById('nrPiese').innerHTML = nrpiese;
                 }
             }
 
 
-            function verificareScoaterePiese(culoare) {
+            function ScoatemPieseDinTabla(culoare) {
                 for (m = 0; m < 30; ++m) {
                     n = parseInt(imgs[m].parentElement.getAttribute('pozitie'));
                     vCuloare = parseInt(imgs[m].getAttribute('culoare'));
-                    if (culoare == vCuloare) {
-                        if ((0 < n) && (n < 7) && (vCuloare == 1)) {
-                            ++nrpN;
-                        }
-                        if ((18 < n) && (n < 25) && (vCuloare == 0)) {
-                            ++nrpA;
-                        }
+                    if ((0 < n) && (n < 7) && (culoare == vCuloare) && (vCuloare == 1)) {
+                        nrpiese = nrpiese + 1;
+                    }
+                    if ((18 < n) && (n < 25) && (culoare == vCuloare) && (vCuloare == 0)) {
+                        nrpiese = nrpiese + 1;
+                    }
+                    if (n == -1) {
+                        nrpiese = nrpiese + 1;
+                    }
+                    if (n == 26) {
+                        nrpiese = nrpiese + 1;
                     }
                 }
             }
+
+
+
 
             function AvemPieseAfara() {
                 if (afaraN = 25) {
@@ -297,23 +313,21 @@
                 mutatZ1 = 0;
                 mutatZ2 = 0;
                 nrmutari = 0;
+                nrpiese = 0;
 
                 color = 1 - color;
 
-                z1 = (Math.floor(Math.random() * 6) + 1);
-                z2 = (Math.floor(Math.random() * 6) + 1);
+                // z1 = (Math.floor(Math.random() * 6) + 1);
+                // z2 = (Math.floor(Math.random() * 6) + 1);
 
+                z1 = 5;
+                z2 = 6;
                 document.getElementById('zar1').innerHTML = z1;
                 document.getElementById('zar2').innerHTML = z2;
 
                 afisare();
 
                 PiesaScoasa(color)
-
-                // am piesa afara?
-                // daca color = 1 verificam  25.sus, color = 0 verificam 25.jos
-                // daca DA ridica piesa
-                // daca e alba o pozitionam in 0-5 sus, daca e neagra in 0-5 jos
             }
 
             function PiesaScoasa(color) {
